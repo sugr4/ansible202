@@ -1,0 +1,9 @@
+---
+# tasks/prechecks_ubuntu.yml
+# precheck tasks to be run on ubuntu only    
+- name: Assert windows major  version matched
+  assert: 
+    that: ansible_facts.ansible_distribution_major_version == "10"
+    fail_msg: "ansible distribution major version is not 10"
+    success_msg: "ansible distribution major version is 10"
+

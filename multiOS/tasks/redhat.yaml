@@ -1,0 +1,6 @@
+---
+# tasks/redhat.yml
+# tasks only to be run on CentOS
+- name: Perform a yum operation (centos uses the yum package installer)
+  debug:
+    msg: This will only run on redhat
