@@ -1,0 +1,14 @@
+- name: test redfish
+  hosts: localhost  
+  
+  tasks:
+    - name: GET request
+      ansible.builtin.uri:
+        url: http://127.0.0.1:2224/redfish/v1/Systems/437XR1138R2
+        return_content: true
+      register: this
+
+    - name: print output
+      debug:
+        msg: "{{ this.json.Processors }}"
+
