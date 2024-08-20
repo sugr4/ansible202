@@ -1,0 +1,10 @@
+---
+- name: redfish scripting example
+  connection: local
+  hosts: localhost
+  tasks:
+    - name: Runs a local script on a remote node after transferring it
+      script: GetSetPowerStateREDFISH.py -ip 10.0.0.89 -u root -p r0gerwilc0 --set On
+      args:
+        executable: python3
+      register: results       
