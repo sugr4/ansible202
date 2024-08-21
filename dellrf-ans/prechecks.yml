@@ -1,0 +1,25 @@
+  # Precheck
+- name: Assert that an expected condition is true (this is a chicago asset)
+  assert:
+      that:
+          - "'Chicago' in results.redfish_facts.system.entries[0][1].AssetTag"
+      success_msg: "Confirmed a Chicago asset"
+
+- name: Ensure the correct model is being used
+  assert:
+      that:
+        - results.redfish_facts.system.entries[0][1].Model == "3500"
+      success_msg: "Confrimed model 3500"
+      fail_msg: "This does not appear to be a model 3500. Aborting."
+
+- name: Assert that OS is running
+  assert:
+      that:
+        - results.redfish_facts.system.entries[0][1].BootProgress.LastState == "OSRunning"
+      success_msg: "Confirmed OS is running"
+
+- name: Assert that processer count is greater than 1
+  assert:
+      that:
+        - results.redfish_facts.system.entries[0][1].ProcessorSummary.Count | int > 1
+      success_msg: "Confirmed processor count > 1"
