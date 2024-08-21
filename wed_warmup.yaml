@@ -1,0 +1,32 @@
+---
+- name: Wednesday Warmup
+  hosts: redfish
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Get CPU model
+      community.general.redfish_info:
+        category: Systems
+        command: GetCpuInventory
+        baseuri: "{{ baseuri }}"
+        username: "{{ username }}"
+        password: "{{password}}"
+      register: this1
+
+    - name: print output
+      debug:
+        var: this1.redfish_facts.cpu.entries[0][1][0].Model
+
+    - name: Restart system power gracefully
+      community.general.redfish_command:
+        category: Manager
+        command: PowerGracefulRestart
+        resource_id: BMC
+        baseuri: "{{ baseuri }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+      register: this2
+
+        # - name: print output
+        #debug:
+        #var: this2
